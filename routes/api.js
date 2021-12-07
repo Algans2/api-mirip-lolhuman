@@ -124,7 +124,49 @@ var len = 15
         res.sendFile(__path + '/docs/503.html')
     }
 })
+router.get('/teskontol', async (req, res, next) => {
 
+          var apikey = req.query.apikey
+
+          var url = req.query.url
+
+       	if(!apikey) return res.sendFile(__path + '/docs/403.html')        if(listkey.includes(apikey)){
+
+        	if(!url) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kata"})
+
+       fetch(encodeURI(`https://docs-jojo.herokuapp.com/api/neon_light?text=${url}`))
+
+        .then(response => response.json())
+
+        .then(async data => {
+
+        var result = data[Math.floor(Math.random() * data.length)];
+
+        var buffer = result.url;
+
+          data = await fetch(buffer).then(v => v.buffer())
+
+         await fs.writeFileSync(__path +'/tmp/chika.jpg', data)
+
+        res.sendFile(__path+'/tmp/chika.jpg')
+
+         })
+
+         .catch(e => {
+
+         	console.log(e);
+
+         	res.sendFile(__path + '/docs/503.html')
+
+})
+
+} else {
+
+  res.sendFile(__path + '/docs/403.html')
+
+}
+
+})
 router.get('/cekapikey', async (req, res, next) => {
 	var apikeyInput = req.query.apikey
 	if(!apikeyInput) return res.sendFile(__path + '/docs/403.html')
