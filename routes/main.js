@@ -13,6 +13,9 @@ router.get('/docs', (req, res) => {
 router.get('/docs/asupan', (req, res) => {
 	res.sendFile(__path + '/api/asupan.html')
 })
+router.get('/docs/hilihvokal', (req, res) => {
+
+	res.sendFile(__path + '/api/hilihvokal.html')})
 router.get('/docs/anime', (req, res) => {
 	res.sendFile(__path + '/api/anime.html')
 })
